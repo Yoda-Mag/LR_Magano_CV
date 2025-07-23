@@ -1,14 +1,17 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="LR_Magano_CV.WebForm1" %>
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>My Virtual CV</title>
+    <title>Letlhogonolo Magano's Virtual CV</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
     <style>
+        /* Base Dark Theme Styles */
         body {
             background-color: #0a0a23;
             background-image:
@@ -19,6 +22,7 @@
             background-repeat: repeat;
             color: #e5e7eb;
             font-family: 'Orbitron', sans-serif;
+            transition: background-color 0.5s ease; /* Smooth transition for theme change */
         }
 
         .glow {
@@ -34,6 +38,7 @@
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background 0.5s ease, border 0.5s ease; /* Smooth transition */
         }
 
         .section-title {
@@ -51,6 +56,7 @@
             background-repeat: repeat;
             background-size: 600px 600px;
             min-height: 100vh;
+            transition: background 0.5s ease, background-image 0.5s ease; /* Smooth transition */
         }
 
         /* Skill Bar styles */
@@ -59,13 +65,14 @@
             border-radius: 9999px; /* Tailwind's rounded-full */
             height: 8px; /* Tailwind's h-2 */
             overflow: hidden;
+            transition: background-color 0.5s ease; /* Smooth transition */
         }
 
         .skill-bar {
             background-color: #38bdf8; /* Tailwind's sky-400 */
             height: 100%;
             width: 0%; /* Start at 0, fill with JS */
-            transition: width 1s ease-out; /* Smooth animation */
+            transition: width 1s ease-out, background-color 0.5s ease; /* Smooth animation */
         }
 
         /* Fade-in animation for sections */
@@ -80,37 +87,230 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Custom hover effects (Dark Theme) */
+        .contact-link-hover:hover {
+            color: #7dd3fc; /* sky-300 */
+            transform: translateX(5px);
+            transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
+        }
+
+        .list-item-hover:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+            border-radius: 0.25rem; /* rounded-sm */
+            transform: translateX(3px);
+            transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+        }
+
+        .project-card-hover {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.5s ease, border 0.5s ease; /* Smooth transition */
+        }
+
+        .project-card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 189, 212, 0.3), 0 4px 6px -2px rgba(0, 189, 212, 0.2); /* Cyan glow shadow */
+        }
+
+        .achievement-item-hover:hover {
+            color: #93c5fd; /* blue-300 */
+            transform: translateX(3px);
+            transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
+        }
+
+        /* Light Theme Styles (applied when body has 'light-theme' class) */
+        body.light-theme {
+            background-color: #f0f4f8; /* Light gray-blue */
+            background-image: none; /* Remove space background for light theme */
+            color: #333; /* Darker text */
+        }
+
+        body.light-theme .space-bg {
+            background: #f0f4f8; /* Match body background */
+            background-image: none;
+            color: #333;
+        }
+
+        body.light-theme .glass {
+            background: rgba(255, 255, 255, 0.8); /* More opaque white */
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            color: #333; /* Dark text inside glass */
+        }
+
+        body.light-theme .glow {
+            text-shadow: none; /* Remove glow for light theme headings */
+            color: #1a202c; /* Dark text for headings */
+        }
+        body.light-theme .glow:hover {
+            text-shadow: none;
+            color: #2b6cb0; /* Darker blue on hover */
+        }
+
+        body.light-theme .section-title {
+            color: #2c5282; /* Darker blue for section titles */
+        }
+
+        body.light-theme .bg-blue-900 { /* Sidebar background */
+            background-color: #e0e7ff; /* Light blue */
+            color: #1a202c; /* Dark text */
+        }
+        body.light-theme .text-white { /* Text in sidebar */
+            color: #1a202c;
+        }
+        body.light-theme .text-blue-200 { /* Sub-text in sidebar */
+            color: #4a5568;
+        }
+        body.light-theme .text-blue-300 { /* Headings in sidebar */
+            color: #2c5282;
+        }
+        body.light-theme .text-blue-400 { /* Links in sidebar */
+            color: #3182ce;
+        }
+
+        /* Skill Bar in light theme */
+        body.light-theme .skill-bar-container {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        body.light-theme .skill-bar {
+            background-color: #4299e1; /* Blue for light theme */
+        }
+
+        /* Hover effects in light theme */
+        body.light-theme .contact-link-hover:hover {
+            color: #2b6cb0; /* Darker blue */
+        }
+
+        body.light-theme .list-item-hover:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        body.light-theme .project-card-hover {
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            color: #333;
+        }
+        body.light-theme .project-card-hover:hover {
+            box-shadow: 0 10px 15px -3px rgba(66, 153, 225, 0.3), 0 4px 6px -2px rgba(66, 153, 225, 0.2); /* Blue glow shadow */
+        }
+
+        body.light-theme .achievement-item-hover:hover {
+            color: #4299e1; /* Blue for light theme */
+        }
+
+        body.light-theme .bg-blue-600 { /* Download button */
+            background-color: #3182ce; /* Darker blue */
+        }
+        body.light-theme .bg-blue-600:hover {
+            background-color: #2b6cb0; /* Even darker blue */
+        }
+        body.light-theme .text-gray-300 { /* Main content text */
+            color: #333;
+        }
+        body.light-theme footer.glow {
+            color: #3182ce; /* Blue for footer text */
+        }
+
+        /* Theme toggle button specific styles */
+        #theme-toggle {
+            position: absolute;
+            top: 1.5rem; /* Equivalent to Tailwind's top-6 */
+            right: 1.5rem; /* Equivalent to Tailwind's right-6 */
+            background-color: rgba(255, 255, 255, 0.15);
+            color: #e5e7eb;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 9999px; /* rounded-full */
+            cursor: pointer;
+            font-size: 0.875rem; /* text-sm */
+            font-weight: 600; /* font-semibold */
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            z-index: 10; /* Ensure it's above other content */
+        }
+
+        #theme-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        body.light-theme #theme-toggle {
+            background-color: rgba(0, 0, 0, 0.1);
+            color: #333;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+        }
+
+        body.light-theme #theme-toggle:hover {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        /* Project button specific styles */
+        .project-button {
+            display: inline-flex;
+            align-items: center;
+            background-color: #1e40af; /* blue-800 */
+            color: #e5e7eb; /* gray-200 */
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem; /* rounded-md */
+            font-size: 0.875rem; /* text-sm */
+            font-weight: 500; /* font-medium */
+            margin-top: 0.75rem; /* mt-3 */
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .project-button:hover {
+            background-color: #1d4ed8; /* blue-700 */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        body.light-theme .project-button {
+            background-color: #4299e1; /* blue-500 */
+            color: #ffffff;
+        }
+
+        body.light-theme .project-button:hover {
+            background-color: #3182ce; /* blue-600 */
+        }
     </style>
 </head>
 <body>
 
 <form id="form1" runat="server">
     <div class="space-bg py-10 px-6 sm:px-10">
+        <!-- Theme Toggle Button -->
+        <button id="theme-toggle" type="button" class="focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+            <span id="theme-icon">☀️</span> <span id="theme-text">Light Mode</span>
+        </button>
+
         <div class="max-w-6xl mx-auto glass rounded-xl shadow-xl overflow-hidden md:flex">
+            <!-- Sidebar -->
             <div class="bg-blue-900 text-white md:w-1/3 p-6">
-                <div class="text-center">  
-                    <!-- Profile Picture -->
-                    <img src="My photo.jpg" alt="Letlhogonolo Magano profile picture" 
+                <div class="text-center">
+                    <!-- Placeholder image - replace with your actual profile picture path -->
+                    <img src="https://placehold.co/128x128/000000/FFFFFF?text=Profile" alt="Letlhogonolo Magano profile picture"
                          class="rounded-full mx-auto mb-4 border-4 border-white w-32 h-32 object-cover" />
-                    <h1 class="text-2xl font-bold glow">Letlhogonolo Magano</h1>
+                    <h1 class="text-2xl font-bold glow">Letlhogonolo Rethabile Magano</h1>
                     <p class="text-blue-200">Aspiring Software & Data Engineer</p>
                 </div>
                 <div class="mt-6 space-y-4 text-sm">
                     <section aria-labelledby="contact-heading">
                         <h2 id="contact-heading" class="uppercase text-blue-300 font-semibold">Contact</h2>
                         <ul class="mt-2 space-y-1">
-                            <li>Email: maganotlhogie@gmail.com</li>
-                            <li>Phone: +27 61 494 0471</li>
-                            <li>Location: Johannesburg, South Africa</li>
-                            <li>
+                            <li class="list-item-hover">Email: maganotlhogie@gmail.com</li>
+                            <li class="list-item-hover">Phone: +27 61 494 0471</li>
+                            <li class="list-item-hover">Location: Johannesburg, South Africa</li>
+                            <li class="list-item-hover">
                                 GitHub:
-                                <a href="https://github.com/Yoda-Mag" target="_blank" class="text-blue-400 underline" rel="noopener noreferrer">
+                                <a href="https://github.com/Yoda-Mag" target="_blank" class="text-blue-400 underline contact-link-hover" rel="noopener noreferrer">
                                     Yoda-Mag
                                 </a>
                             </li>
-                            <li>
+                            <li class="list-item-hover">
                                 LinkedIn:
-                                <a href="https://www.linkedin.com/in/letlhogonolo-magano-a254a6244" target="_blank" class="text-blue-400 underline" rel="noopener noreferrer">
+                                <a href="https://www.linkedin.com/in/letlhogonolo-magano-a254a6244" target="_blank" class="text-blue-400 underline contact-link-hover" rel="noopener noreferrer">
                                     Letlhogonolo Magano
                                 </a>
                             </li>
@@ -120,36 +320,36 @@
                     <section aria-labelledby="skills-heading">
                         <h2 id="skills-heading" class="uppercase text-blue-300 font-semibold">Skills</h2>
                         <ul class="mt-2 space-y-3">
-                            <li>
+                            <li class="list-item-hover">
                                 <div class="flex justify-between mb-1">
-                                    <span>HTML / CSS / JS</span>
+                                    <span>Languages: C#, Java, Python, C++</span>
                                     <span class="text-xs text-blue-200" data-skill-level="90%">90%</span>
                                 </div>
                                 <div class="skill-bar-container">
                                     <div class="skill-bar" data-skill-percentage="90"></div>
                                 </div>
                             </li>
-                            <li>
+                            <li class="list-item-hover">
                                 <div class="flex justify-between mb-1">
-                                    <span>Java / C# / Python / C++ / SQL</span>
+                                    <span>Frameworks & Tools: .NET, Visual Studio, IntelliJ IDEA, Git/GitHub, SQL Oracle</span>
                                     <span class="text-xs text-blue-200" data-skill-level="85%">85%</span>
                                 </div>
                                 <div class="skill-bar-container">
                                     <div class="skill-bar" data-skill-percentage="85"></div>
                                 </div>
                             </li>
-                            <li>
+                            <li class="list-item-hover">
                                 <div class="flex justify-between mb-1">
-                                    <span>Computer Networking / Databases</span>
-                                    <span class="text-xs text-blue-200" data-skill-level="75%">75%</span>
+                                    <span>Concepts: Agile Dev, Secure Software Design, OOP, System Design, Data Analysis</span>
+                                    <span class="text-xs text-blue-200" data-skill-level="80%">80%</span>
                                 </div>
                                 <div class="skill-bar-container">
-                                    <div class="skill-bar" data-skill-percentage="75"></div>
+                                    <div class="skill-bar" data-skill-percentage="80"></div>
                                 </div>
                             </li>
-                            <li>
+                            <li class="list-item-hover">
                                 <div class="flex justify-between mb-1">
-                                    <span>Communication / Leadership</span>
+                                    <span>Soft Skills: Collaboration, Communication, Adaptability, Creativity, Continuous Learning</span>
                                     <span class="text-xs text-blue-200" data-skill-level="95%">95%</span>
                                 </div>
                                 <div class="skill-bar-container">
@@ -161,41 +361,89 @@
                 </div>
             </div>
 
+            <!-- Main Content -->
             <div class="md:w-2/3 p-8 space-y-10 text-gray-300">
+                <!-- Objective / About -->
                 <section class="fade-in-section" aria-labelledby="about-heading">
-                    <h2 id="about-heading" class="text-2xl font-bold section-title glow mb-2">About Me</h2>
+                    <h2 id="about-heading" class="text-2xl font-bold section-title glow mb-2">Objective</h2>
                     <p class="text-sm leading-relaxed">
-                        A passionate and dedicated IT professional with experience in software development, network design, and problem-solving.
-                        Enthusiastic about building efficient, user-focused systems and continually learning new technologies.
+                        Final-year BSc IT student with a distinction GPA (75.9), strong software development skills (C#, Java), and a passion for innovative technology solutions.
+                        Seeking an opportunity in the Graduate Programme to contribute to cutting-edge financial technologies, grow through mentorship and training, and make a meaningful impact through collaborative, analytical, and forward-thinking problem-solving.
                     </p>
                 </section>
 
+                <!-- Education -->
+                <section class="fade-in-section" aria-labelledby="education-heading">
+                    <h2 id="education-heading" class="text-2xl font-bold section-title glow mb-4">Education</h2>
+                    <div class="mb-4 list-item-hover p-2 -mx-2">
+                        <h3 class="text-lg font-semibold text-white">BSc Information Technology – North-West University</h3>
+                        <p class="text-sm text-blue-300">2023 – Present (Expected Completion: Nov 2025)</p>
+                        <p class="text-sm mt-1">GPA 2024: 75.9 (Distinction)</p>
+                        <p class="text-sm mt-1 font-semibold text-blue-200">Relevant Coursework: Information Security, Object-Oriented Programming, Data Structures & Algorithms, System Analysis & Design, Apps & Advanced UI Programming, Data Analytics</p>
+                    </div>
+                    <div class="list-item-hover p-2 -mx-2">
+                        <h3 class="text-lg font-semibold text-white">BCom Business Management – North-West University</h3>
+                        <p class="text-sm text-blue-300">2022 (switched to IT mid-year)</p>
+                    </div>
+                </section>
+
+                <!-- Experience -->
                 <section class="fade-in-section" aria-labelledby="experience-heading">
                     <h2 id="experience-heading" class="text-2xl font-bold section-title glow mb-4">Experience</h2>
                     <h3 class="text-sm text-blue-300 font-semibold">Student Assistant</h3>
-                    <p class="text-sm text-blue-300">Nov 2023 – Jun 2024</p> <ul class="list-disc list-inside text-sm mt-1 space-y-1">
+                    <p class="text-sm text-blue-300">Nov 2023 – Jun 2024</p>
+                    <ul class="list-disc list-inside text-sm mt-1 space-y-1">
                         <li>Developed internal **data analysis tools** using Python and React, **improving reporting efficiency by 25%**.</li>
-                        <li>Collaborated effectively in an <strong>agile team of 5</strong> to deliver projects on time, **consistently meeting sprint goals**.</li>
+                        <li>Collaborated effectively in an **agile team of 5** to deliver projects on time, **consistently meeting sprint goals**.</li>
                         <li>Maintained **comprehensive documentation** and performed **rigorous code reviews**, **enhancing code quality and team collaboration**.</li>
                     </ul>
                 </section>
 
-                <section class="fade-in-section" aria-labelledby="education-heading">
-                    <h2 id="education-heading" class="text-2xl font-bold section-title glow mb-4">Education</h2>
-                    <h3 class="text-lg font-semibold text-white">BSc in Information Technology – NWU</h3>
-                    <p class="text-sm text-blue-300">Expected Completion: Nov 2025</p>
-                    <p class="text-sm mt-1">Relevant Coursework: Databases, Computer Networks, AI, DSS, Security, Data Structures, Algorithms</p>
+                <!-- Projects -->
+                <section class="fade-in-section" aria-labelledby="projects-heading">
+                    <h2 id="projects-heading" class="text-2xl font-bold section-title glow mb-4">Projects</h2>
+                    <div class="space-y-4">
+                        <div class="project-card-hover p-4 rounded-lg bg-gray-800/20 border border-gray-700/50">
+                            <h3 class="text-lg font-semibold text-white">Messaging App (C#)</h3>
+                            <p class="text-sm leading-relaxed">Built a secure, real-time client-server chat application with private and group messaging using socket programming.</p>
+                            <a href="https://github.com/Yoda-Mag/Group-9-Text-Messaging-App" target="_blank" rel="noopener noreferrer" class="project-button">
+                                <svg class="inline-block w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.499.09.679-.217.679-.481 0-.237-.008-.862-.013-1.693-2.782.602-3.369-1.34-3.369-1.34-.454-1.158-1.11-1.465-1.11-1.465-.908-.618.069-.606.069-.606 1.003.07 1.531 1.032 1.531 1.032.892 1.529 2.341 1.087 2.91.829.091-.645.35-1.087.636-1.338-2.22-.253-4.555-1.113-4.555-4.93 0-1.088.39-1.977 1.029-2.672-.103-.253-.446-1.268.098-2.641 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.373.202 2.388.099 2.641.64.695 1.028 1.584 1.028 2.672 0 3.829-2.339 4.673-4.566 4.922.359.307.678.915.678 1.846 0 1.33-.012 2.41-.012 2.737 0 .267.179.577.688.48C21.137 20.19 24 16.438 24 12.017 24 6.484 19.522 2 14 2h-2z" clip-rule="evenodd"></path></svg>
+                                View on GitHub
+                            </a>
+                        </div>
+                        <div class="project-card-hover p-4 rounded-lg bg-gray-800/20 border border-gray-700/50">
+                            <h3 class="text-lg font-semibold text-white">E-Commerce Platform</h3>
+                            <p class="text-sm leading-relaxed">Developed a full-stack online store with interactive UI, product management, and shopping cart features.</p>
+                            <a href="https://github.com/Mikaiera/CMPG223-Group-16-Project" target="_blank" rel="noopener noreferrer" class="project-button">
+                                <svg class="inline-block w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.499.09.679-.217.679-.481 0-.237-.008-.862-.013-1.693-2.782.602-3.369-1.34-3.369-1.34-.454-1.158-1.11-1.465-1.11-1.465-.908-.618.069-.606.069-.606 1.003.07 1.531 1.032 1.531 1.032.892 1.529 2.341 1.087 2.91.829.091-.645.35-1.087.636-1.338-2.22-.253-4.555-1.113-4.555-4.93 0-1.088.39-1.977 1.029-2.672-.103-.253-.446-1.268.098-2.641 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.373.202 2.388.099 2.641.64.695 1.028 1.584 1.028 2.672 0 3.829-2.339 4.673-4.566 4.922.359.307.678.915.678 1.846 0 1.33-.012 2.41-.012 2.737 0 .267.179.577.688.48C21.137 20.19 24 16.438 24 12.017 24 6.484 19.522 2 14 2h-2z" clip-rule="evenodd"></path></svg>
+                                View on GitHub
+                            </a>
+                        </div>
+                        <div class="project-card-hover p-4 rounded-lg bg-gray-800/20 border border-gray-700/50">
+                            <h3 class="text-lg font-semibold text-white">Banking System (SQL & Oracle)</h3>
+                            <p class="text-sm leading-relaxed">Designed a multi-table schema with procedures and triggers to simulate banking operations.</p>
+                            <a href="https://github.com/Yoda-Mag/Group-Project" target="_blank" rel="noopener noreferrer" class="project-button">
+                                <svg class="inline-block w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.499.09.679-.217.679-.481 0-.237-.008-.862-.013-1.693-2.782.602-3.369-1.34-3.369-1.34-.454-1.158-1.11-1.465-1.11-1.465-.908-.618.069-.606.069-.606 1.003.07 1.531 1.032 1.531 1.032.892 1.529 2.341 1.087 2.91.829.091-.645.35-1.087.636-1.338-2.22-.253-4.555-1.113-4.555-4.93 0-1.088.39-1.977 1.029-2.672-.103-.253-.446-1.268.098-2.641 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.373.202 2.388.099 2.641.64.695 1.028 1.584 1.028 2.672 0 3.829-2.339 4.673-4.566 4.922.359.307.678.915.678 1.846 0 1.33-.012 2.41-.012 2.737 0 .267.179.577.688.48C21.137 20.19 24 16.438 24 12.017 24 6.484 19.522 2 14 2h-2z" clip-rule="evenodd"></path></svg>
+                                View on GitHub
+                            </a>
+                        </div>
+                    </div>
                 </section>
 
-                <section class="fade-in-section" aria-labelledby="certifications-heading">
-                    <h2 id="certifications-heading" class="text-2xl font-bold section-title glow mb-4">Certifications and Achievements</h2>
+                <!-- Certifications & Achievements -->
+                <section class="fade-in-section" aria-labelledby="certifications-achievements-heading">
+                    <h2 id="certifications-achievements-heading" class="text-2xl font-bold section-title glow mb-4">Certifications & Achievements</h2>
                     <ul class="list-disc list-inside text-sm space-y-1">
-                        <li>Amazon AWS: “Cloud-Quest: Cloud Practitioner” Badge (July 2025)</li>
-                        <li>EC-Council: Ethical Hacking Essentials (April 2024)</li>
-                        <li>Top 15% of my class (2024)</li>
+                        <li class="achievement-item-hover">EC-Council: Ethical Hacking Essentials (April 2024)</li>
+                        <li class="achievement-item-hover">Amazon AWS: “Cloud-Quest: Cloud Practitioner” Badge (July 2025)</li>
+                        <li class="achievement-item-hover">Achieved distinction-level GPA in my second year (75.9) with significant academic growth.</li>
+                        <li class="achievement-item-hover">Received an invite from the Golden Key International Honor Society (Students need to be in the top 15% of their class).</li>
+                        <li class="achievement-item-hover">Marked question papers and assisted students who needed help with a first-year statistics module.</li>
+                        <li class="achievement-item-hover">Contributed to team-based software projects, building strong communication and problem-solving skills.</li>
                     </ul>
                 </section>
 
+                <!-- Download Button -->
                 <div class="mt-6">
                     <a href="Documents/CAREER/Main.pdf" download="Letlhogonolo_Magano_CV.pdf"
                        class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition transform hover:scale-105 duration-300 ease-in-out shadow-lg">
@@ -213,6 +461,38 @@
 </form>
 
 <script>
+    // --- Theme Toggle Logic ---
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const themeText = document.getElementById('theme-text');
+    const body = document.body;
+
+    // Check for saved theme preference on load
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+        body.classList.add('light-theme');
+        themeIcon.textContent = '�'; // Moon icon for dark mode
+        themeText.textContent = 'Dark Mode';
+    } else {
+        // Default to dark theme if no preference or 'dark' saved
+        themeIcon.textContent = '☀️'; // Sun icon for light mode
+        themeText.textContent = 'Light Mode';
+    }
+
+    themeToggleBtn.addEventListener('click', () => {
+        if (body.classList.contains('light-theme')) {
+            body.classList.remove('light-theme');
+            localStorage.setItem('theme', 'dark');
+            themeIcon.textContent = '☀️'; // Sun icon for light mode
+            themeText.textContent = 'Light Mode';
+        } else {
+            body.classList.add('light-theme');
+            localStorage.setItem('theme', 'light');
+            themeIcon.textContent = '🌙'; // Moon icon for dark mode
+            themeText.textContent = 'Dark Mode';
+        }
+    });
+
     // --- Skill Bar Animation ---
     const skillBars = document.querySelectorAll('.skill-bar');
 
@@ -278,3 +558,4 @@
 
 </body>
 </html>
+�
